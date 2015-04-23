@@ -11,6 +11,7 @@ namespace MVC5HW1.Models
 {
     using System;
     using System.Collections.Generic;
+    using System.ComponentModel.DataAnnotations;
     
     public partial class 客戶資料
     {
@@ -26,6 +27,7 @@ namespace MVC5HW1.Models
         public string 電話 { get; set; }
         public string 傳真 { get; set; }
         public string 地址 { get; set; }
+        [Required]
         public string Email { get; set; }
         public bool IsDelete { get; set; }
     

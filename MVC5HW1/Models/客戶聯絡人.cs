@@ -11,6 +11,7 @@ namespace MVC5HW1.Models
 {
     using System;
     using System.Collections.Generic;
+    using System.ComponentModel.DataAnnotations;
     
     public partial class 客戶聯絡人
     {
@@ -18,7 +19,10 @@ namespace MVC5HW1.Models
         public int 客戶Id { get; set; }
         public string 職稱 { get; set; }
         public string 姓名 { get; set; }
+         [Required]
+         [RegularExpression("^[a-zA-Z0-9_\\.-]+@([a-zA-Z0-9-]+\\.)+[a-zA-Z]{2,6}$", ErrorMessage = "E-mail錯誤")]
         public string Email { get; set; }
+        [RegularExpression(@"\d{4}-\d{6}", ErrorMessage = "手機號碼錯誤")]
         public string 手機 { get; set; }
         public string 電話 { get; set; }
         public bool IsDelete { get; set; }
