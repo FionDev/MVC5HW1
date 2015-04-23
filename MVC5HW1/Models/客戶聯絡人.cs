@@ -22,7 +22,7 @@ namespace MVC5HW1.Models
          [Required]
          [RegularExpression("^[a-zA-Z0-9_\\.-]+@([a-zA-Z0-9-]+\\.)+[a-zA-Z]{2,6}$", ErrorMessage = "E-mail錯誤")]
         public string Email { get; set; }
-        [RegularExpression(@"\d{4}-\d{6}", ErrorMessage = "手機號碼錯誤")]
+        [RegularExpression(@"\d{4}-\d{6}", ErrorMessage = "手機號碼格式 09xx-xxxxxx")]
         public string 手機 { get; set; }
         public string 電話 { get; set; }
         public bool IsDelete { get; set; }

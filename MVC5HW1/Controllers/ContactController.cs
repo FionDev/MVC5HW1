@@ -59,14 +59,14 @@ namespace MVC5HW1.Controllers
         }
 
         // GET: Contact/Edit/5
-        public ActionResult Edit(int id)
+        public ActionResult Edit(int id=0)
         {
             客戶聯絡人 c = this._contactRepo.GetByContactID(id);
             if (c == null)
             {
                 return HttpNotFound();
             }
-
+            ViewBag.客戶Id = new SelectList(Customers, "Id", "客戶名稱",c.客戶Id);
             return View(c);
         }
 
@@ -79,7 +79,7 @@ namespace MVC5HW1.Controllers
                 this._contactRepo.UpdateCheckEmail(contact);
                 return RedirectToAction("Index");
             }
-
+            ViewBag.客戶Id = new SelectList(Customers, "Id", "客戶名稱", contact.客戶Id);
             return View(contact);
         }
 

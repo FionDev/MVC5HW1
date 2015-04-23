@@ -67,7 +67,7 @@ namespace MVC5HW1.Controllers
             {
                 return HttpNotFound();
             }
-
+            ViewBag.客戶Id = new SelectList(Customers, "Id", "客戶名稱", c.客戶Id);
             return View(c);
         }
 
@@ -80,7 +80,7 @@ namespace MVC5HW1.Controllers
                 this._bankAccountRepo.Update(account);
                 return RedirectToAction("Index");
             }
-
+            ViewBag.客戶Id = new SelectList(Customers, "Id", "客戶名稱", account.客戶Id);
             return View(account);
         }
 
