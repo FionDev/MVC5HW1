@@ -186,8 +186,15 @@
       <DependentUpon>CustomerEntity.edmx</DependentUpon>
     </Compile>
     <Compile Include="Models\IdentityModels.cs" />
-    <Compile Include="Models\Interface\ICustmerData.cs" />
+    <Compile Include="Models\Interface\IBankAccountRepository.cs" />
+    <Compile Include="Models\Interface\IContactRepository.cs" />
+    <Compile Include="Models\Interface\ICustomerRepository.cs" />
+    <Compile Include="Models\Interface\IRepository.cs" />
     <Compile Include="Models\ManageViewModels.cs" />
+    <Compile Include="Models\Repository\BankAccountRepository.cs" />
+    <Compile Include="Models\Repository\ContactRepository.cs" />
+    <Compile Include="Models\Repository\CustomerRepository.cs" />
+    <Compile Include="Models\Repository\GenericRepository.cs" />
     <Compile Include="Models\客戶聯絡人.cs">
       <DependentUpon>CustomerEntity.tt</DependentUpon>
     </Compile>

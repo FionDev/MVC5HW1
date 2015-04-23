@@ -1,132 +1,109 @@
-﻿using System;
+﻿using MVC5HW1.Models;
+using MVC5HW1.Models.Interface;
+using MVC5HW1.Models.Repository;
+using System;
 using System.Collections.Generic;
-using System.Data;
-using System.Data.Entity;
 using System.Linq;
-using System.Net;
 using System.Web;
 using System.Web.Mvc;
-using MVC5HW1.Models;
 
 namespace MVC5HW1.Controllers
 {
     public class ContactController : Controller
     {
-        private CustmerEntities db = new CustmerEntities();
+        private IContactRepository _contactRepo;
+        private ICustomerRepository _customerRepo;
 
+        public IEnumerable<客戶資料> Customers 
+        {
+            get { return _customerRepo.GetAllExcepDelete(); }
+        }
+
+        public ContactController()
+        {
+            this._contactRepo = new ContactRepository();
+            this._customerRepo = new CustomerRepository();
+        }
         // GET: Contact
         public ActionResult Index()
         {
-            var 客戶聯絡人 = db.客戶聯絡人.Include(客 => 客.客戶資料);
-            return View(客戶聯絡人.ToList());
+
+            List<客戶聯絡人> c = this._contactRepo.GetAllExcepDelete().ToList();
+            return View(c);
         }
 
         // GET: Contact/Details/5
-        public ActionResult Details(int? id)
+        public ActionResult Details(int id)
         {
-            if (id == null)
-            {
-                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
-            }
-            客戶聯絡人 客戶聯絡人 = db.客戶聯絡人.Find(id);
-            if (客戶聯絡人 == null)
-            {
-                return HttpNotFound();
-            }
-            return View(客戶聯絡人);
+            客戶聯絡人 c = this._contactRepo.GetByContactID(id);
+            return View(c);
         }
 
         // GET: Contact/Create
         public ActionResult Create()
         {
-            ViewBag.客戶Id = new SelectList(db.客戶資料, "Id", "客戶名稱");
+            ViewBag.客戶Id = new SelectList(Customers, "Id", "客戶名稱");
             return View();
         }
 
         // POST: Contact/Create
-        // 若要免於過量張貼攻擊，請啟用想要繫結的特定屬性，如需
-        // 詳細資訊，請參閱 http://go.microsoft.com/fwlink/?LinkId=317598。
         [HttpPost]
-        [ValidateAntiForgeryToken]
-        public ActionResult Create([Bind(Include = "Id,客戶Id,職稱,姓名,Email,手機,電話")] 客戶聯絡人 客戶聯絡人)
+        public ActionResult Create(客戶聯絡人 contact)
         {
             if (ModelState.IsValid)
             {
-                db.客戶聯絡人.Add(客戶聯絡人);
-                db.SaveChanges();
+                this._contactRepo.CreateCheckEmail(contact);
                 return RedirectToAction("Index");
             }
-
-            ViewBag.客戶Id = new SelectList(db.客戶資料, "Id", "客戶名稱", 客戶聯絡人.客戶Id);
-            return View(客戶聯絡人);
+            return View();
         }
 
         // GET: Contact/Edit/5
-        public ActionResult Edit(int? id)
+        public ActionResult Edit(int id)
         {
-            if (id == null)
-            {
-                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
-            }
-            客戶聯絡人 客戶聯絡人 = db.客戶聯絡人.Find(id);
-            if (客戶聯絡人 == null)
+            客戶聯絡人 c = this._contactRepo.GetByContactID(id);
+            if (c == null)
             {
                 return HttpNotFound();
             }
-            ViewBag.客戶Id = new SelectList(db.客戶資料, "Id", "客戶名稱", 客戶聯絡人.客戶Id);
-            return View(客戶聯絡人);
+
+            return View(c);
         }
 
         // POST: Contact/Edit/5
-        // 若要免於過量張貼攻擊，請啟用想要繫結的特定屬性，如需
-        // 詳細資訊，請參閱 http://go.microsoft.com/fwlink/?LinkId=317598。
         [HttpPost]
-        [ValidateAntiForgeryToken]
-        public ActionResult Edit([Bind(Include = "Id,客戶Id,職稱,姓名,Email,手機,電話")] 客戶聯絡人 客戶聯絡人)
+        public ActionResult Edit(int id, 客戶聯絡人 contact)
         {
             if (ModelState.IsValid)
             {
-                db.Entry(客戶聯絡人).State = EntityState.Modified;
-                db.SaveChanges();
+                this._contactRepo.UpdateCheckEmail(contact);
                 return RedirectToAction("Index");
             }
-            ViewBag.客戶Id = new SelectList(db.客戶資料, "Id", "客戶名稱", 客戶聯絡人.客戶Id);
-            return View(客戶聯絡人);
+
+            return View(contact);
         }
 
         // GET: Contact/Delete/5
-        public ActionResult Delete(int? id)
+        public ActionResult Delete(int id)
         {
-            if (id == null)
-            {
-                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
-            }
-            客戶聯絡人 客戶聯絡人 = db.客戶聯絡人.Find(id);
-            if (客戶聯絡人 == null)
+            客戶聯絡人 c = this._contactRepo.GetByContactID(id);
+            if (c == null)
             {
                 return HttpNotFound();
             }
-            return View(客戶聯絡人);
+
+            return View(c);
+            //return View();
         }
 
         // POST: Contact/Delete/5
-        [HttpPost, ActionName("Delete")]
-        [ValidateAntiForgeryToken]
+        [HttpPost]
         public ActionResult DeleteConfirmed(int id)
         {
-            客戶聯絡人 客戶聯絡人 = db.客戶聯絡人.Find(id);
-            db.客戶聯絡人.Remove(客戶聯絡人);
-            db.SaveChanges();
+            客戶聯絡人 c = this._contactRepo.GetByContactID(id);
+            if (c != null)
+                this._contactRepo.Delete(c);
             return RedirectToAction("Index");
-        }
-
-        protected override void Dispose(bool disposing)
-        {
-            if (disposing)
-            {
-                db.Dispose();
-            }
-            base.Dispose(disposing);
         }
     }
 }
