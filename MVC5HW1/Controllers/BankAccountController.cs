@@ -98,7 +98,7 @@ namespace MVC5HW1.Controllers
         }
 
         // POST: BankAccount/Delete/5
-        [HttpPost]
+       [HttpPost, ActionName("Delete")]
         public ActionResult DeleteConfirmed(int id)
         {
             客戶銀行資訊 c = this._bankAccountRepo.GetByID(id);

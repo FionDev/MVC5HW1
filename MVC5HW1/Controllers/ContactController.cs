@@ -97,7 +97,7 @@ namespace MVC5HW1.Controllers
         }
 
         // POST: Contact/Delete/5
-        [HttpPost]
+        [HttpPost,ActionName("Delete")]
         public ActionResult DeleteConfirmed(int id)
         {
             客戶聯絡人 c = this._contactRepo.GetByContactID(id);
