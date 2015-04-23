@@ -13,5 +13,7 @@ namespace MVC5HW1.Models.Interface
         IEnumerable<客戶銀行資訊> GetByCustomerID(int id);
 
         IQueryable<客戶銀行資訊> GetAllExcepDelete();
+
+        bool DeleteByTag(客戶銀行資訊 instance);
     }
 }

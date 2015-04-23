@@ -22,5 +22,22 @@ namespace MVC5HW1.Models.Repository
         {
             return this.GetAll().Where(x => x.IsDelete == false);
         }
+
+        public bool DeleteByTag(客戶銀行資訊 instance)
+        {
+            bool cok = false;
+            if (instance == null)
+                return cok;
+
+            客戶銀行資訊 c = this.GetByID(instance.Id);
+            if (c != null)
+            {
+                c.IsDelete = true;
+                this.Update(c);
+            }
+            cok = true;
+            return cok;
+
+        }
     }
 }

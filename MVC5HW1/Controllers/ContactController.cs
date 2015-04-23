@@ -102,7 +102,7 @@ namespace MVC5HW1.Controllers
         {
             客戶聯絡人 c = this._contactRepo.GetByContactID(id);
             if (c != null)
-                this._contactRepo.Delete(c);
+                this._contactRepo.DeleteByTag(c);
             return RedirectToAction("Index");
         }
     }

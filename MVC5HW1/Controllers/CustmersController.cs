@@ -96,7 +96,7 @@ namespace MVC5HW1.Controllers
         {
             客戶資料 c = this._customerRepo.GetByCustomerID(id);
             if (c != null)
-                this._customerRepo.Delete(c);
+                this._customerRepo.DeleteByTag(c);
             return RedirectToAction("Index");
         }
     }

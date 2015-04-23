@@ -103,7 +103,7 @@ namespace MVC5HW1.Controllers
         {
             客戶銀行資訊 c = this._bankAccountRepo.GetByID(id);
             if (c != null)
-                this._bankAccountRepo.Delete(c);
+                this._bankAccountRepo.DeleteByTag(c);
             return RedirectToAction("Index");
         }
     }
