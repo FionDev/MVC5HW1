@@ -12,6 +12,8 @@ namespace MVC5HW1.Models
     using System;
     using System.Data.Entity;
     using System.Data.Entity.Infrastructure;
+    using System.Data.Entity.Core.Objects;
+    using System.Linq;
     
     public partial class CustmerEntities : DbContext
     {
@@ -28,5 +30,10 @@ namespace MVC5HW1.Models
         public virtual DbSet<客戶資料> 客戶資料 { get; set; }
         public virtual DbSet<客戶銀行資訊> 客戶銀行資訊 { get; set; }
         public virtual DbSet<客戶聯絡人> 客戶聯絡人 { get; set; }
+    
+        public virtual ObjectResult<SP_GetAllCustomerStatistics_Result> SP_GetAllCustomerStatistics()
+        {
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<SP_GetAllCustomerStatistics_Result>("SP_GetAllCustomerStatistics");
+        }
     }
 }

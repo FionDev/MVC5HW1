@@ -14,7 +14,6 @@ namespace MVC5HW1.Models.Repository
             return this.Get(x=>x.Id==id);
         }
 
-
         public IQueryable<客戶資料> GetAllExcepDelete()
         {
             return this.GetAll().Where(x => x.IsDelete == false);

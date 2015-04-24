@@ -68,6 +68,7 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
+        <Function Name="SP_GetAllCustomerStatistics" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo" />
         <EntityContainer Name="客戶資料ModelStoreContainer">
           <EntitySet Name="客戶資料" EntityType="Self.客戶資料" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="客戶銀行資訊" EntityType="Self.客戶銀行資訊" Schema="dbo" store:Type="Tables" />
@@ -164,7 +165,13 @@
             <End Role="客戶資料" EntitySet="客戶資料" />
             <End Role="客戶聯絡人" EntitySet="客戶聯絡人" />
           </AssociationSet>
+          <FunctionImport Name="SP_GetAllCustomerStatistics" ReturnType="Collection(客戶資料Model.SP_GetAllCustomerStatistics_Result)" />
         </EntityContainer>
+        <ComplexType Name="SP_GetAllCustomerStatistics_Result">
+          <Property Type="String" Name="客戶名稱" Nullable="false" MaxLength="50" />
+          <Property Type="Int32" Name="ContactCount" Nullable="true" />
+          <Property Type="Int32" Name="AccountCount" Nullable="true" />
+        </ComplexType>
       </Schema>
     </edmx:ConceptualModels>
     <!-- C-S mapping content -->
@@ -213,6 +220,15 @@
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
+          <FunctionImportMapping FunctionImportName="SP_GetAllCustomerStatistics" FunctionName="客戶資料Model.Store.SP_GetAllCustomerStatistics">
+          <ResultMapping>
+              <ComplexTypeMapping TypeName="客戶資料Model.SP_GetAllCustomerStatistics_Result">
+                <ScalarProperty Name="客戶名稱" ColumnName="客戶名稱" />
+                <ScalarProperty Name="ContactCount" ColumnName="ContactCount" />
+                <ScalarProperty Name="AccountCount" ColumnName="AccountCount" />
+              </ComplexTypeMapping>
+            </ResultMapping>
+          </FunctionImportMapping>
         </EntityContainerMapping>
       </Mapping>
     </edmx:Mappings>

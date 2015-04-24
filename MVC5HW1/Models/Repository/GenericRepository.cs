@@ -88,6 +88,17 @@ namespace MVC5HW1.Models.Repository
             return this.Context.Set<TEntity>().AsQueryable();
         }
 
+        public IQueryable<TEntity> GetStoreProcedureWithoutParameters(string storeProcedureName)
+        {
+            IQueryable<TEntity> result = null;
+            if (string.IsNullOrEmpty(storeProcedureName))
+                return result;
+            string exeSql = "exec " + storeProcedureName.Trim(); ;
+            result = this.Context.Database.SqlQuery<TEntity>(exeSql).AsQueryable();
+            return result;
+        }
+
+
         public void SaveChanges() 
         {
             this.Context.SaveChanges();

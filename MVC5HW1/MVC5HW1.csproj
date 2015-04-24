@@ -164,6 +164,7 @@
     <Compile Include="Controllers\BankAccountController.cs" />
     <Compile Include="Controllers\ContactController.cs" />
     <Compile Include="Controllers\CustmersController.cs" />
+    <Compile Include="Controllers\CustomerStatisticsController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\ManageController.cs" />
     <Compile Include="Global.asax.cs">
@@ -185,16 +186,22 @@
       <DesignTime>True</DesignTime>
       <DependentUpon>CustomerEntity.edmx</DependentUpon>
     </Compile>
+    <Compile Include="Models\CustomerStatisticsViewModels.cs" />
     <Compile Include="Models\IdentityModels.cs" />
     <Compile Include="Models\Interface\IBankAccountRepository.cs" />
     <Compile Include="Models\Interface\IContactRepository.cs" />
     <Compile Include="Models\Interface\ICustomerRepository.cs" />
     <Compile Include="Models\Interface\IRepository.cs" />
+    <Compile Include="Models\Interface\IStoreProcedureRepository.cs" />
     <Compile Include="Models\ManageViewModels.cs" />
     <Compile Include="Models\Repository\BankAccountRepository.cs" />
     <Compile Include="Models\Repository\ContactRepository.cs" />
     <Compile Include="Models\Repository\CustomerRepository.cs" />
     <Compile Include="Models\Repository\GenericRepository.cs" />
+    <Compile Include="Models\Repository\StoreProcedureRepository.cs" />
+    <Compile Include="Models\SP_GetAllCustomerStatistics_Result.cs">
+      <DependentUpon>CustomerEntity.tt</DependentUpon>
+    </Compile>
     <Compile Include="Models\客戶聯絡人.cs">
       <DependentUpon>CustomerEntity.tt</DependentUpon>
     </Compile>
@@ -295,6 +302,7 @@
     <Content Include="Views\BankAccount\Details.cshtml" />
     <Content Include="Views\BankAccount\Edit.cshtml" />
     <Content Include="Views\BankAccount\Index.cshtml" />
+    <Content Include="Views\CustomerStatistics\Index.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
